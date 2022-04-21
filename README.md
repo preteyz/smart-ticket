@@ -103,6 +103,7 @@ Use the `BLANK_README.md` to get started.
 <a href="https://miro.com/app/board/uXjVO70qThA=/?share_link_id=955729652859">Click Here to see more!</a>
 
 ## ERD
+![image](https://user-images.githubusercontent.com/53968876/164368655-704d2b3f-d750-43b0-ab2a-1704fcc59815.png)
 
 
 ### Built With
