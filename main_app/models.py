@@ -23,22 +23,6 @@ class Material(models.Model):
     class Meta:
         ordering = ['name']
 
-class Invoice(models.Model):
-    job_id = models.IntegerField(primary_key=True)
-    invoice_id = models.IntegerField(primary_key=True)
-    employee_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    number = models.CharField(max_length=250)
-    name = models.CharField(max_length=10)
-    address = models.CharField(max_length=1000)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    start_date = models.DateTimeField()
-    contract_time = models.IntegerField()
-    
-    def __str__(self):
-        return self.invoice_id
-    
-    class Meta:
-        ordering = ['name']
 
 class Ticket(models.Model):
     ticket_id = models.IntegerField()
@@ -55,7 +39,23 @@ class Ticket(models.Model):
         return self.ticket_id
     
     class Meta:
-        ordering = ['name']
+        ordering = ['ticketed_at']
+
+class Invoice(models.Model):
+    invoice_id = models.IntegerField(primary_key=True)
+    job_id = models.IntegerField()
+    tickets = models.ForeignKey(Ticket, on_delete=models.CASCADE)
+    vendor = models.CharField(max_length=100)
+    invoice_date = models.DateTimeField()
+    due_date = models.DateTimeField()
+    status = models.DateTimeField()
+    amount = models.IntegerField()
+    
+    def __str__(self):
+        return self.invoice_id
+    
+    class Meta:
+        ordering = ['invoice_date']
 
 class Job(models.Model):
     # job_id = models.IntegerField()
