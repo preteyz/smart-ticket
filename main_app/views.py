@@ -27,7 +27,7 @@ class Tickets(TemplateView):
 class Ticket_Create(CreateView):
     template_name = 'ticket_create.html'
     model = Ticket
-    fields = ['ticket_id', 'job_id', 'material_id', 'number', 'quantity', 'note', 'status']
+    fields = ['ticket_id', 'job_id', 'number', 'quantity', 'note', 'status']
 
     def form_valid(self, form):
         self.object = form.save(commit=False)

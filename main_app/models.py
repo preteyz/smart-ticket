@@ -10,31 +10,32 @@ STATUS_CHOICES = (
     ("archived", "archived")
 )
 
+
+
 class Material(models.Model):
     material_id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=15)
     received_qty = models.CharField(max_length=1000)
     PO_qty = models.ForeignKey(User, on_delete=models.CASCADE)
     unit_measure = models.CharField(max_length=2)
-
+    
     def __str__(self):
         return self.name
     
     class Meta:
         ordering = ['name']
 
-
 class Ticket(models.Model):
     ticket_id = models.IntegerField()
     ticketed_at = models.DateTimeField(auto_now_add=True)
     job_id = models.IntegerField(primary_key=True)
-    material_id = models.ForeignKey(Material, on_delete=models.CASCADE, blank=True)
     signer = models.ForeignKey(User, on_delete=models.CASCADE)
     number = models.CharField(max_length=250)
     quantity = models.IntegerField()
     note = models.CharField(max_length=500, blank=True)
     status = models.CharField(max_length=20, choices = STATUS_CHOICES)
     ticketed_at = models.DateTimeField(auto_now_add=True)
+    material_id = models.ForeignKey(Material, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.ticket_id
