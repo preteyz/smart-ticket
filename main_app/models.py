@@ -11,7 +11,8 @@ STATUS_CHOICES = (
 )
 
 
-
+# MUST CREATE INTERMEDIARY MODEL
+# If multiple jobs have the same item, their quantities will be the same...
 class Material(models.Model):
     material_id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=15)
@@ -60,9 +61,9 @@ class Invoice(models.Model):
         ordering = ['invoice_date']
 
 class Job(models.Model):
-    # job_id = models.IntegerField()
-    materials = models.ForeignKey(Material, on_delete=models.CASCADE)
-    employees = models.ForeignKey(User, on_delete=models.CASCADE)
+    job_id = models.IntegerField()
+    materials = models.ManyToManyField(Material, on_delete=models.CASCADE)
+    employees = models.ManyToManyField(User, on_delete=models.CASCADE)
     # add validation keeping this to only 10 digits
     number = models.CharField(max_length=250)
     name = models.CharField(max_length=200)
@@ -70,8 +71,6 @@ class Job(models.Model):
     owner = models.CharField(max_length=300)
     start_date = models.DateTimeField()
     contract_time = models.IntegerField()
-    invoices = models.ForeignKey(Invoice, on_delete=models.CASCADE)
-    tickets = models.ForeignKey(Ticket, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
