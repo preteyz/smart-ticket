@@ -5,7 +5,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView
-from .models import Ticket, Job, Material
+from .models import Ticket, Job, Material, User
 
 # Create your views here.
 class Home(TemplateView):
@@ -56,6 +56,7 @@ class Job_Create(CreateView):
     def form_valid(self, form):
         self.object = form.save(commit=False)
         self.object.employee = self.request.user
+        print(self.request.user)
         self.object.save()
         return HttpResponseRedirect('/jobs')
 
@@ -65,11 +66,14 @@ class Job_Detail(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         job = get_object_or_404(Job, id=self.kwargs['pk'])
+        # How do I attach a user from my form to this job?
+        employee_add = self.request.GET.get("employee_add")
 
         # materials accessable thru job
         context['job'] = job
         # Pull all users that are assigned to the job
         # context['team'] = User.objects.filter(environment__icontains=) 
+        context['company'] = User.objects.all()
         context["header"] = "Jobsite Detail"
         return context
 
