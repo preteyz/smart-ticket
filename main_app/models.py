@@ -16,7 +16,7 @@ STATUS_CHOICES = (
 class Material(models.Model):
     material_id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=15)
-    received_qty = models.CharField(max_length=1000)
+    received_qty = models.CharField(max_length=1000, blank=True)
     PO_qty = models.ForeignKey(User, on_delete=models.CASCADE)
     unit_measure = models.CharField(max_length=2)
     
@@ -61,7 +61,6 @@ class Invoice(models.Model):
         ordering = ['invoice_date']
 
 class Job(models.Model):
-    job_id = models.IntegerField()
     materials = models.ManyToManyField(Material, related_name='material')
     employees = models.ManyToManyField(User, related_name='employee')
     # add validation keeping this to only 10 digits

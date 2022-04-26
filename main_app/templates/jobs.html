@@ -9,7 +9,7 @@
 <h1>{{header}}  <a href="{% url 'job_create' %}" class="btn btn-light" role="button">+</a></h1>
 
     {% comment %} Pending addition of logic for user permissions {% endcomment %}
-    {% for job in jobs %}
+    {% for job in all_jobs %}
     <div class="card">
         <div class="card" style="width: 100%;">
             <img class="card-img-top" src="{{job.img}}" alt="{{job.name}}">

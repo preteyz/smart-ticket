@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView
-from .models import Ticket, Job
+from .models import Ticket, Job, Material
 
 # Create your views here.
 class Home(TemplateView):
@@ -55,5 +56,40 @@ class Job_Create(CreateView):
     def form_valid(self, form):
         self.object = form.save(commit=False)
         self.object.employee = self.request.user
+        self.object.save()
+        return HttpResponseRedirect('/jobs')
+
+class Job_Detail(DetailView):
+    model = Job
+    template_name = "job_detail.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        job = get_object_or_404(Job, id=self.kwargs['pk'])
+
+        # materials accessable thru job
+        context['job'] = job
+        # Pull all users that are assigned to the job
+        # context['team'] = User.objects.filter(environment__icontains=) 
+        context["header"] = "Jobsite Detail"
+        return context
+
+class Materials(TemplateView):
+    template_name = 'jobs.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        all_jobs = Job.objects.all()
+        context["job_materials"] = all_jobs
+        context["title"] = "Jobs - SmartTicket"
+        context["header"] = "Materials"
+        return context
+
+class Material_Create(CreateView):
+    template_name = 'job_create.html'
+    model = Job
+    fields = ['material_id', 'name','PO_qty', 'unit_measure']
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
         self.object.save()
         return HttpResponseRedirect('/jobs')
