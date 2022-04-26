@@ -17,7 +17,7 @@
             <small>Shared by: <a href="/user/{{ ticket.user.username }}">{{ ticket.user.username }}</a></small>
             <br /><br />
             <p class="card-text">{{ticket.description}}</p>
-            <a href="{% url 'location_detail' ticket.pk %}" class="btn btn-primary">Details</a>
+            <a href="{% url 'ticket_detail' ticket.pk %}" class="btn btn-primary">Details</a>
             </div>
         </div>
     </div>

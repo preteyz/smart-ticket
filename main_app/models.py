@@ -62,8 +62,8 @@ class Invoice(models.Model):
 
 class Job(models.Model):
     job_id = models.IntegerField()
-    materials = models.ManyToManyField(Material, on_delete=models.CASCADE)
-    employees = models.ManyToManyField(User, on_delete=models.CASCADE)
+    materials = models.ManyToManyField(Material, related_name='material')
+    employees = models.ManyToManyField(User, related_name='employee')
     # add validation keeping this to only 10 digits
     number = models.CharField(max_length=250)
     name = models.CharField(max_length=200)
