@@ -154,9 +154,12 @@
             <h5 class="card-title">Materials</h5>
             
             <div>
+                <a class="btn btn-primary float-right"
+                target="__blank"
+                href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Import</a>
                 <a class="btn btn-info float-right"
                 target="__blank"
-                href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>
+                href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Add</a>
             </div>
         </div>
         <div class="row gutters-lg">
@@ -166,40 +169,40 @@
 
 
                         <div class="row">
+                            <div class="col-sm-4">
+                                <h6 class="mb-0">Material</h6>
+                            </div>
+                            <div class="col-sm-2">
+                                <h6 class="mb-0">Rcv Qty</h6>
+                            </div>
+                            <div class="col-sm-2">
+                                <h6 class="mb-0">PO Qty</h6>
+                            </div>
+                            <div class="col-sm-1">
+                                <h6 class="mb-0">UM</h6>
+                            </div>
                             <div class="col-sm-3">
-                                <h6 class="mb-0">First Name</h6>
-                            </div>
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Last Name</h6>
-                            </div>
-                            <div class="col-sm-2">
-                                <h6 class="mb-0">Email</h6>
-                            </div>
-                            <div class="col-sm-2">
-                                <h6 class="mb-0">Phone #</h6>
-                            </div>
-                            <div class="col-sm-2">
-                                <h6 class="mb-0">Role</h6>
+                                <h6 class="mb-0">Cost Code</h6>
                             </div>
                         </div>
                         <hr>
 
-                        {% for employee in employees %}
+                        {% for material in materials %}
                         <div class="row">
                             <div class="col-sm-3 text-secondary">
-                                <h6 class="mb-0">{{employee.first_name}}</h6>
+                                <h6 class="mb-0">{{material.name}}</h6>
                             </div>
                             <div class="col-sm-3 text-secondary">
-                                <h6 class="mb-0">{{employee.last_name}}</h6>
+                                <h6 class="mb-0">{{material.received_qty}}</h6>
                             </div>
                             <div class="col-sm-2 text-secondary">
-                                <h6 class="mb-0">{{employee.email}}</h6>
+                                <h6 class="mb-0">{{material.PO_qty}}</h6>
                             </div>
                             <div class="col-sm-2 text-secondary">
-                                <h6 class="mb-0">{{employee.phone_number}}</h6>
+                                <h6 class="mb-0">{{material.unit_measure}}</h6>
                             </div>
                             <div class="col-sm-2 text-secondary">
-                                <h6 class="mb-0">{{employee.role}}</h6>
+                                <h6 class="mb-0">{{material.cost_code}}</h6>
                             </div>
                         </div>
                         <hr>

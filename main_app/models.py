@@ -19,6 +19,7 @@ class Material(models.Model):
     received_qty = models.CharField(max_length=1000, blank=True)
     PO_qty = models.ForeignKey(User, on_delete=models.CASCADE)
     unit_measure = models.CharField(max_length=2)
+    cost_code = models.CharField(max_length=25)
     
     def __str__(self):
         return self.name
