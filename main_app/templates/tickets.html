@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{title}}
+{% endblock %}
+
+{% block content %}
+
+<h1>{{header}}  <a href="{% url 'ticket_create' %}" class="btn btn-light" role="button">+</a></h1>
+
+    {% for ticket in tickets %}
+    <div class="card">
+        <div class="card" style="width: 100%;">
+            <img class="card-img-top" src="{{ticket.img}}" alt="{{ticket.name}}">
+            <div class="card-body">
+            <h5 class="card-title">{{ticket.name}}</h5>
+            <small>Shared by: <a href="/user/{{ ticket.user.username }}">{{ ticket.user.username }}</a></small>
+            <br /><br />
+            <p class="card-text">{{ticket.description}}</p>
+            <a href="{% url 'ticket_detail' ticket.pk %}" class="btn btn-primary">Details</a>
+            </div>
+        </div>
+    </div>
+    
+    {% endfor %}
+{% endblock %}

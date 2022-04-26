@@ -1,0 +1,232 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="main-body">
+        <br/>
+        
+        <!-- Job Detail Component -->
+        <div class="card-header d-flex justify-content-between rounded">
+            <h5 class="card-title">Jobsite Detail</h5>
+            
+            <div>
+                <a class="btn btn-info float-right"
+                target="__blank"
+                href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>
+            </div>
+        </div>
+
+        <div class="row gutters-sm">
+
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Job Number</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">{{job.number}}</div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Job Name</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">{{job.name}}</div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Address</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">{{job.address}}</div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Job Owner</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">{{job.owner}}</div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">NTP Date</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">{{job.start_date}}</div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Duration</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">{{job.contract_time}}</div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+                
+            </div>
+
+        </div>
+
+        <!-- Team Component -->
+        <div class="card-header d-flex justify-content-between rounded">
+            <h5 class="card-title">Team</h5>
+            
+            <div>
+                <form class="d-flex">
+                    <select name="employee_add" style="min-height: 30px; border:none">
+                    <option value="empty">Choose Employee</option>
+                    {% for employee in company %}
+                    <option value="{{employee}}">{{employee}}</option>
+                    {% endfor %}
+                    <input type="submit"  value="FILTER" style="color:white; background:#6E757D; border-radius: 5px; border: 1px solid #cccccc; min-height: 30px;"></input>
+                    </select>    
+                </form>
+            </div>
+        </div>
+        <div class="row gutters-lg">
+            <div class="col-md-12">
+                <div class="card mb-3">
+                    <div class="card-body">
+
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">First Name</h6>
+                            </div>
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Last Name</h6>
+                            </div>
+                            <div class="col-sm-2">
+                                <h6 class="mb-0">Email</h6>
+                            </div>
+                            <div class="col-sm-2">
+                                <h6 class="mb-0">Phone #</h6>
+                            </div>
+                            <div class="col-sm-2">
+                                <h6 class="mb-0">Role</h6>
+                            </div>
+                        </div>
+                        <hr>
+
+                        {% for employee in employees %}
+                        <div class="row">
+                            <div class="col-sm-3 text-secondary">
+                                <h6 class="mb-0">{{employee.first_name}}</h6>
+                            </div>
+                            <div class="col-sm-3 text-secondary">
+                                <h6 class="mb-0">{{employee.last_name}}</h6>
+                            </div>
+                            <div class="col-sm-2 text-secondary">
+                                <h6 class="mb-0">{{employee.email}}</h6>
+                            </div>
+                            <div class="col-sm-2 text-secondary">
+                                <h6 class="mb-0">{{employee.phone_number}}</h6>
+                            </div>
+                            <div class="col-sm-2 text-secondary">
+                                <h6 class="mb-0">{{employee.role}}</h6>
+                            </div>
+                        </div>
+                        <hr>
+                        {% endfor %}
+
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Material Component -->
+        <div class="card-header d-flex justify-content-between rounded">
+            <h5 class="card-title">Materials</h5>
+            
+            <div>
+                <a class="btn btn-primary float-right"
+                target="__blank"
+                href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Import</a>
+                <a class="btn btn-info float-right"
+                target="__blank"
+                href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Add</a>
+            </div>
+        </div>
+        <div class="row gutters-lg">
+            <div class="col-md-12">
+                <div class="card mb-3">
+                    <div class="card-body">
+
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <h6 class="mb-0">Material</h6>
+                            </div>
+                            <div class="col-sm-2">
+                                <h6 class="mb-0">Rcv Qty</h6>
+                            </div>
+                            <div class="col-sm-2">
+                                <h6 class="mb-0">PO Qty</h6>
+                            </div>
+                            <div class="col-sm-1">
+                                <h6 class="mb-0">UM</h6>
+                            </div>
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Cost Code</h6>
+                            </div>
+                        </div>
+                        <hr>
+
+                        {% if materials %}
+
+                        {% for material in materials %}
+                        <div class="row">
+                            <div class="col-sm-3 text-secondary">
+                                <h6 class="mb-0">{{material.name}}</h6>
+                            </div>
+                            <div class="col-sm-3 text-secondary">
+                                <h6 class="mb-0">{{material.received_qty}}</h6>
+                            </div>
+                            <div class="col-sm-2 text-secondary">
+                                <h6 class="mb-0">{{material.PO_qty}}</h6>
+                            </div>
+                            <div class="col-sm-2 text-secondary">
+                                <h6 class="mb-0">{{material.unit_measure}}</h6>
+                            </div>
+                            <div class="col-sm-2 text-secondary">
+                                <h6 class="mb-0">{{material.cost_code}}</h6>
+                            </div>
+                        </div>
+                        <hr>
+                        {% endfor %}
+
+                        {% else %}
+                        <div class="row">
+                            <div class="col-sm-12 text-secondary">
+                                <h6 class="mb-0">No materials added yet...</h6>
+                            </div>
+                        </div>
+
+                        {% endif %}
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+{% endblock %}
