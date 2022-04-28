@@ -21,7 +21,7 @@ urlpatterns = [
 
     # Material CRUD
     path('materials/', views.Materials.as_view(), name = "materials"),
-    path('materials/new', views.Material_Create.as_view(), name = "material_create"),
+    path('jobs/<int:pk>/materials/new', views.Material_Create.as_view(), name = "material_create"),
     # path('materials/<int:pk>', views.Material_Detail.as_view(), name = "material_detail"),
     # path('materials/<int:pk>/update', views.Material_Update.as_view(), name="material_update"),
     # path('materials/<int:pk>/delete', views.Material_Delete.as_view(), name="material_delete"),

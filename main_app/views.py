@@ -7,6 +7,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView
 from .models import Ticket, Job, Material, User
 
+from django.db.models import Q
+
 # Create your views here.
 class Home(TemplateView):
     template_name = 'home.html'
@@ -65,16 +67,18 @@ class Job_Detail(DetailView):
     template_name = "job_detail.html"
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        job = get_object_or_404(Job, id=self.kwargs['pk'])
+        job_object = get_object_or_404(Job, id=self.kwargs['pk'])
         # How do I attach a user from my form to this job?
         employee_add = self.request.GET.get("employee_add")
 
         # materials accessable thru job
-        context['job'] = job
+        context['job'] = job_object
         # Pull all users that are assigned to the job
         # context['team'] = User.objects.filter(environment__icontains=) 
         context['company'] = User.objects.all()
-        context["header"] = "Jobsite Detail"
+        context['header'] = 'Jobsite Detail'
+        context['materials'] = Material.objects.filter(Q(job = job_object))
+        # context["locations"] = TravelLocation.objects.filter(Q(name = query) | Q(environment = query))
         return context
 
 class Materials(TemplateView):
@@ -84,16 +88,20 @@ class Materials(TemplateView):
         context = super().get_context_data(**kwargs)
         all_jobs = Job.objects.all()
         context["job_materials"] = all_jobs
-        context["title"] = "Jobs - SmartTicket"
+        context["title"] = "Materials - SmartTicket"
         context["header"] = "Materials"
         return context
 
 class Material_Create(CreateView):
     template_name = 'job_create.html'
-    model = Job
-    fields = ['material_id', 'name','PO_qty', 'unit_measure']
+    model = Material
+    fields = ['name','PO_qty', 'unit_measure', 'cost_code']
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
+        # self.object.job = self.kwargs['pk']
+        self.object.job = Job.objects.get(pk=self.kwargs['pk'])
         self.object.save()
+        print(self.object)
+
         return HttpResponseRedirect('/jobs')
