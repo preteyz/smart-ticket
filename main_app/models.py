@@ -101,7 +101,7 @@ class Job(models.Model):
     name = models.CharField(max_length=200)
     address = models.CharField(max_length=300)
     owner = models.CharField(max_length=300)
-    start_date = models.DateTimeField()
+    start_date = models.DateField()
     contract_time = models.IntegerField()
 
 
@@ -129,7 +129,6 @@ class Ticket(models.Model):
     quantity = models.IntegerField()
     note = models.CharField(max_length=500, blank=True)
     status = models.CharField(max_length=20, choices = STATUS_CHOICES)
-    ticketed_at = models.DateTimeField(auto_now_add=True)
     material_id = models.ForeignKey(Material, on_delete=models.CASCADE)
 
     def __str__(self):

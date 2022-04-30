@@ -6,22 +6,97 @@
 
 {% block content %}
 
-<h1>{{header}}  <a href="{% url 'job_create' %}" class="btn btn-light" role="button">+</a></h1>
+    <h1>{{header}}  <a href="{% url 'job_create' %}" class="btn btn-light" role="button">+</a></h1>
+    <div class="row gutters-lg">
+        <div class="col-md-12">
+            <div class="card mb-3">
+                <div class="card-body">
 
-    {% comment %} Pending addition of logic for user permissions {% endcomment %}
-    {% for job in all_jobs %}
-    <div class="card">
-        <div class="card" style="width: 100%;">
-            <img class="card-img-top" src="{{job.img}}" alt="{{job.name}}">
-            <div class="card-body">
-            <h5 class="card-title">{{job.name}}</h5>
-            <small>Shared by: <a href="/user/{{ job.user.username }}">{{ job.user.username }}</a></small>
-            <br /><br />
-            <p class="card-text">{{job.description}}</p>
-            <a href="{% url 'job_detail' job.pk %}" class="btn btn-primary">Details</a>
+
+                    <div class="row">
+
+                        <form class="d-flex col-sm-6">
+                            <input class="form-control me-2"
+                                   type="number_filter"
+                                   name="number_filter"
+                                   placeholder="Search Job Number"
+                                   aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+
+                        <div class="col-sm-6">
+                            <form class="input-group rounded">
+                                <select name="owner_filter" style="min-height: 100px; border:none">
+                                <option value="empty">Choose Job Owner</option>
+                                {% for owner in owners %}
+                                <option value="{{owner}}">{{owner}}</option>
+                                {% endfor %}
+                                <input type="submit"  value="FILTER" style="color:white; background:#6E757D; border-radius: 5px; border: 1px solid #cccccc; min-height: 30px;"></input>
+                                </select>    
+                            </form>
+                            <!-- <a href="{% url 'jobs' %}">Clear</a> -->
+                        </div>
+                    </div>
+                    <hr>  
+                    
+                </div>
             </div>
         </div>
     </div>
-    
+
+
+    <div class="row">
+        <div class="col-sm-2">
+            <h6 class="mb-0">Number</h6>
+        </div>
+        <div class="col-sm-3">
+            <h6 class="mb-0">Name</h6>
+        </div>
+        <div class="col-sm-2">
+            <h6 class="mb-0">Owner</h6>
+        </div>
+        <div class="col-sm-2">
+            <h6 class="mb-0">Start Date</h6>
+        </div>
+        <div class="col-sm-2">
+            <h6 class="mb-0">Contract Time</h6>
+        </div>
+
+    </div>
+    <hr>
+    {% comment %} Pending addition of logic for user permissions {% endcomment %}
+    {% if all_jobs %}
+    {% for job in all_jobs %}
+    <div class="row">
+        <div class="col-sm-2 text-secondary">
+            <h6 class="mb-0">{{job.number}}</h6>
+        </div>
+        <div class="col-sm-3 text-secondary">
+            <h6 class="mb-0">{{job.name}}</h6>
+        </div>
+        <div class="col-sm-2 text-secondary">
+            <h6 class="mb-0">{{job.owner}}</h6>
+        </div>
+        <div class="col-sm-2 text-secondary">
+            <h6 class="mb-0">{{job.start_date}}</h6>
+        </div>
+        <div class="col-sm-2 text-secondary">
+            <h6 class="mb-0">{{job.contract_time}}</h6>
+        </div>
+        <div class="col-sm-1">
+            <a href="{% url 'job_detail' job.pk %}">Details</a>
+        </div>
+    </div>
+    <hr>
     {% endfor %}
+
+    {% else %}
+    <div class="row">
+        <div class="col-sm-12 text-secondary">
+            <h6 class="mb-0">No jobs added yet...</h6>
+        </div>
+    </div>
+
+    {% endif %}
+
 {% endblock %}

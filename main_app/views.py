@@ -46,8 +46,16 @@ class Jobs(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         all_jobs = Job.objects.all()
+        owner = self.request.GET.get("owner_filter")
+        number = self.request.GET.get("number_filter")
         context["all_jobs"] = all_jobs
         context["title"] = "Jobs - SmartTicket"
+        context["owners"] = Job.objects.values_list('owner', flat=True).distinct()
+        if owner != None:
+                context["all_jobs"] = Job.objects.filter(owner__icontains=owner)#filters owner
+        if number != None:
+                context["all_jobs"] = Job.objects.filter(number__icontains=number)#filters number
+
         return context
 
 class Job_Create(CreateView):
@@ -78,7 +86,8 @@ class Job_Detail(DetailView):
         context['company'] = User.objects.all()
         context['header'] = 'Jobsite Detail'
         context['materials'] = Material.objects.filter(Q(job = job_object))
-        # context["locations"] = TravelLocation.objects.filter(Q(name = query) | Q(environment = query))
+        # if employee_add:
+
         return context
 
 class Materials(TemplateView):
