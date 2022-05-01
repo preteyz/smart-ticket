@@ -4,8 +4,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from .forms import Material_Form
 from django.views.generic import DetailView
 from .models import Ticket, Job, Material, User
+from django.urls import reverse, reverse_lazy
 
 from django.db.models import Q
 
@@ -52,11 +54,22 @@ class Jobs(TemplateView):
         context["title"] = "Jobs - SmartTicket"
         context["owners"] = Job.objects.values_list('owner', flat=True).distinct()
         if owner != None:
-                context["all_jobs"] = Job.objects.filter(owner__icontains=owner)#filters owner
+            context["all_jobs"] = Job.objects.filter(owner__icontains=owner)#filters owner
         if number != None:
-                context["all_jobs"] = Job.objects.filter(number__icontains=number)#filters number
-
+            context["all_jobs"] = Job.objects.filter(number__icontains=number)#filters number
         return context
+
+class Job_Update(UpdateView):
+    template_name = 'job_create.html'
+    model = Job
+    fields = ['number', 'name', 'address', 'owner', 'start_date', 'contract_time']
+    
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.employee = self.request.user
+        print(self.request.user)
+        self.object.save()
+        return reverse('location_detail', kwargs={'pk': self.object.pk})
 
 class Job_Create(CreateView):
     template_name = 'job_create.html'
@@ -104,13 +117,16 @@ class Materials(TemplateView):
 class Material_Create(CreateView):
     template_name = 'job_create.html'
     model = Material
-    fields = ['name','PO_qty', 'unit_measure', 'cost_code']
+    form_class = Material_Form
+    success_url = reverse_lazy('jobs')
+    # fields = ['name','PO_qty', 'unit_measure', 'cost_code']
 
     def form_valid(self, form):
-        self.object = form.save(commit=False)
-        # self.object.job = self.kwargs['pk']
-        self.object.job = Job.objects.get(pk=self.kwargs['pk'])
-        self.object.save()
-        print(self.object)
-
-        return HttpResponseRedirect('/jobs')
+        form.instance.job = get_object_or_404(Job, id=self.kwargs['pk'])
+        return super().form_valid(form)
+        # self.object = form.save(commit=False)
+        # # self.object.job = self.kwargs['pk']
+        # self.object.job = Job.objects.get(pk=self.kwargs['pk'])
+        # self.object.save()
+        # print(self.object)
+        # return HttpResponseRedirect('/jobs')

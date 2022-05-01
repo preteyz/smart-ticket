@@ -5,98 +5,98 @@
 {% endblock %}
 
 {% block content %}
+    
+<br/>
+<br/>
+<div class="row gutters-lg">
+    <div class="col-md-12">
 
-    <h1>{{header}}  <a href="{% url 'job_create' %}" class="btn btn-light" role="button">+</a></h1>
-    <div class="row gutters-lg">
-        <div class="col-md-12">
-            <div class="card mb-3">
-                <div class="card-body">
+        <div class="row ">
 
+            <form class="d-flex col-sm-6">
+                <input class="form-control me-2"
+                        type="number_filter"
+                        name="number_filter"
+                        placeholder="Search Job Number"
+                        aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
 
-                    <div class="row">
+            <div class="col-sm-5">
+                <form class="input-group rounded">
+                    <select name="owner_filter" style="min-height: 30px; border:none">
+                    <option value="empty">Choose Job Owner</option>
+                    {% for owner in owners %}
+                    <option value="{{owner}}">{{owner}}</option>
+                    {% endfor %}
+                    <input type="submit"  value="FILTER" style="color:white; background:#6E757D; border-radius: 5px; border: 1px solid #cccccc; min-height: 30px;"></input>
+                    </select>    
+                </form>
+            </div>
 
-                        <form class="d-flex col-sm-6">
-                            <input class="form-control me-2"
-                                   type="number_filter"
-                                   name="number_filter"
-                                   placeholder="Search Job Number"
-                                   aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit">Search</button>
-                        </form>
-
-                        <div class="col-sm-6">
-                            <form class="input-group rounded">
-                                <select name="owner_filter" style="min-height: 100px; border:none">
-                                <option value="empty">Choose Job Owner</option>
-                                {% for owner in owners %}
-                                <option value="{{owner}}">{{owner}}</option>
-                                {% endfor %}
-                                <input type="submit"  value="FILTER" style="color:white; background:#6E757D; border-radius: 5px; border: 1px solid #cccccc; min-height: 30px;"></input>
-                                </select>    
-                            </form>
-                            <!-- <a href="{% url 'jobs' %}">Clear</a> -->
-                        </div>
-                    </div>
-                    <hr>  
-                    
-                </div>
+            <div class="col-sm-1">
+                <h1>{{header}}  <a href="{% url 'job_create' %}" class="btn btn-light" role="button">+</a></h1>
             </div>
         </div>
+        <hr>  
+        
+    </div>
+</div>
+<br/>
+<br/>
+
+<div class="row">
+    <div class="col-sm-2">
+        <h6 class="mb-0">Number</h6>
+    </div>
+    <div class="col-sm-3">
+        <h6 class="mb-0">Name</h6>
+    </div>
+    <div class="col-sm-2">
+        <h6 class="mb-0">Owner</h6>
+    </div>
+    <div class="col-sm-2">
+        <h6 class="mb-0">Start Date</h6>
+    </div>
+    <div class="col-sm-2">
+        <h6 class="mb-0">Contract Time</h6>
     </div>
 
-
-    <div class="row">
-        <div class="col-sm-2">
-            <h6 class="mb-0">Number</h6>
-        </div>
-        <div class="col-sm-3">
-            <h6 class="mb-0">Name</h6>
-        </div>
-        <div class="col-sm-2">
-            <h6 class="mb-0">Owner</h6>
-        </div>
-        <div class="col-sm-2">
-            <h6 class="mb-0">Start Date</h6>
-        </div>
-        <div class="col-sm-2">
-            <h6 class="mb-0">Contract Time</h6>
-        </div>
-
+</div>
+<hr>
+{% comment %} Pending addition of logic for user permissions {% endcomment %}
+{% if all_jobs %}
+{% for job in all_jobs %}
+<div class="row">
+    <div class="col-sm-2 text-secondary">
+        <h6 class="mb-0">{{job.number}}</h6>
     </div>
-    <hr>
-    {% comment %} Pending addition of logic for user permissions {% endcomment %}
-    {% if all_jobs %}
-    {% for job in all_jobs %}
-    <div class="row">
-        <div class="col-sm-2 text-secondary">
-            <h6 class="mb-0">{{job.number}}</h6>
-        </div>
-        <div class="col-sm-3 text-secondary">
-            <h6 class="mb-0">{{job.name}}</h6>
-        </div>
-        <div class="col-sm-2 text-secondary">
-            <h6 class="mb-0">{{job.owner}}</h6>
-        </div>
-        <div class="col-sm-2 text-secondary">
-            <h6 class="mb-0">{{job.start_date}}</h6>
-        </div>
-        <div class="col-sm-2 text-secondary">
-            <h6 class="mb-0">{{job.contract_time}}</h6>
-        </div>
-        <div class="col-sm-1">
-            <a href="{% url 'job_detail' job.pk %}">Details</a>
-        </div>
+    <div class="col-sm-3 text-secondary">
+        <h6 class="mb-0">{{job.name}}</h6>
     </div>
-    <hr>
-    {% endfor %}
-
-    {% else %}
-    <div class="row">
-        <div class="col-sm-12 text-secondary">
-            <h6 class="mb-0">No jobs added yet...</h6>
-        </div>
+    <div class="col-sm-2 text-secondary">
+        <h6 class="mb-0">{{job.owner}}</h6>
     </div>
+    <div class="col-sm-2 text-secondary">
+        <h6 class="mb-0">{{job.start_date}}</h6>
+    </div>
+    <div class="col-sm-2 text-secondary">
+        <h6 class="mb-0">{{job.contract_time}}</h6>
+    </div>
+    <div class="col-sm-1">
+        <a href="{% url 'job_detail' job.pk %}">Details</a>
+    </div>
+</div>
+<hr>
+{% endfor %}
 
-    {% endif %}
+{% else %}
+<div class="row">
+    <div class="col-sm-12 text-secondary">
+        <h6 class="mb-0">No jobs added yet...</h6>
+    </div>
+</div>
+
+{% endif %}
 
 {% endblock %}

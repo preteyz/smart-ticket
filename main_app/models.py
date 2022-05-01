@@ -113,6 +113,10 @@ class Material(models.Model):
     cost_code = models.CharField(max_length=25)
     job = models.ForeignKey(Job, related_name='materials', on_delete=models.CASCADE)
 
+    def rcv_material(self, rcv_quantity):
+        self.received_qty += rcv_quantity
+        return self.received_qty
+
     def __str__(self):
         return self.name
     

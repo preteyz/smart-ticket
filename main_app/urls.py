@@ -16,7 +16,7 @@ urlpatterns = [
     path('jobs/', views.Jobs.as_view(), name = "jobs"),
     path('jobs/new', views.Job_Create.as_view(), name = "job_create"),
     path('jobs/<int:pk>', views.Job_Detail.as_view(), name = "job_detail"),
-    # path('jobs/<int:pk>/update', views.Job_Update.as_view(), name="job_update"),
+    path('jobs/<int:pk>/update', views.Job_Update.as_view(), name="job_update"),
     # path('jobs/<int:pk>/delete', views.Job_Delete.as_view(), name="job_delete"),
 
     # Material CRUD
