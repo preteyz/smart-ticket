@@ -49,12 +49,22 @@ class Ticket_Create(CreateView):
         self.object.material_id.save()
         return HttpResponseRedirect('/tickets')
 
+class Ticket_Detail(DetailView):
+    model = Job
+    template_name = "ticket_detail.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        job_object = get_object_or_404(Job, id=self.kwargs['pk'])
+        context['job'] = job_object
+        context['header'] = 'Ticket Detail'
+        # if employee_add:
+
+        return context
+
 # AJAX testing dynamic dropdown
 def load_materials(request):
     job_id = request.GET.get('job_id')
     materials = Material.objects.filter(job_id=job_id).all()
-    print(materials)
-    print("hello")
     # return render(request, 'material_dropdown_list_options.html', {'materials': materials})
     print(list(materials.values('id', 'name')))
     return JsonResponse(list(materials.values('id', 'name')), safe=False)
@@ -85,7 +95,6 @@ class Job_Update(UpdateView):
     def form_valid(self, form):
         self.object = form.save(commit=False)
         self.object.employee = get_object_or_404(Job, id=self.kwargs[self.request.user.pk])
-        print(self.request.user)
         self.object.save()
         return reverse('location_detail', kwargs={'pk': self.object.pk})
 
@@ -97,9 +106,6 @@ class Job_Create(CreateView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        # self.object.employees = self.request.user
-        
-        print(self.request.user)
         self.object.save()
         self.object.employees.add(get_object_or_404(User, id=self.request.user.pk))
         return HttpResponseRedirect('/jobs')
@@ -112,20 +118,29 @@ class Job_Detail(DetailView):
         job_object = get_object_or_404(Job, id=self.kwargs['pk'])
         # How do I attach a user from my form to this job?
         employee_add = self.request.GET.get("employee_add")
-        print(employee_add)
-        # self.object.employees.add(get_object_or_404(User, username=employee_add))
-        self.object.save()
+        employee_remove = self.request.GET.get("employee_remove")
+        # add and remove throwing error
+        # if employee_add:
+        #     job_object.employees.add(get_object_or_404(User, username=employee_add)) 
+        # if employee_remove:
+        #     job_object.employees.add(get_object_or_404(User, username=employee_remove)) 
 
         # materials accessable thru job
         context['job'] = job_object
         # Pull all users that are assigned to the job
-        context['company'] = User.objects.all()
-        context['employees'] = job_object.employees.all()
+        context['add_employees'] = User.objects.all()
+        context['remove_employees'] = job_object.employees.all()
         context['header'] = 'Jobsite Detail'
         context['materials'] = Material.objects.filter(Q(job = job_object))
         # if employee_add:
 
         return context
+
+@method_decorator(login_required, name='dispatch')
+class Job_Delete(DeleteView):
+    model = Job
+    template_name = "job_confirm_delete.html"
+    success_url = "/jobs/"
 
 class Materials(TemplateView):
     template_name = 'jobs.html'
@@ -147,13 +162,14 @@ class Material_Create(CreateView):
 
     def form_valid(self, form):
         form.instance.job = get_object_or_404(Job, id=self.kwargs['pk'])
+        form.instance.received_qty = 0
         return super().form_valid(form)
-        # self.object = form.save(commit=False)
-        # # self.object.job = self.kwargs['pk']
-        # self.object.job = Job.objects.get(pk=self.kwargs['pk'])
-        # self.object.save()
-        # print(self.object)
-        # return HttpResponseRedirect('/jobs')
+
+@method_decorator(login_required, name='dispatch')
+class Material_Delete(DeleteView):
+    model = Job
+    template_name = "material_confirm_delete.html"
+    success_url = "/jobs/"
 
 def login_view(request):
     # if POST, then authenticate the user (submitting the username and password)

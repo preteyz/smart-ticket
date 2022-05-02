@@ -93,9 +93,7 @@ STATUS_CHOICES = (
 #         return True
 
 class Job(models.Model):
-    # materials = models.ManyToManyField(Material, related_name='material')
     employees = models.ManyToManyField(User, related_name='employee')
-    # add validation keeping this to only 10 digits
     number = models.CharField(max_length=250)
     name = models.CharField(max_length=200)
     address = models.CharField(max_length=300)
@@ -107,8 +105,7 @@ class Job(models.Model):
         return self.name
 
 class Material(models.Model):
-    name = models.CharField(max_length=15)
-    # make int field
+    name = models.CharField(max_length=50)
     received_qty = models.IntegerField()
     PO_qty = models.IntegerField()
     unit_measure = models.CharField(max_length=2)
