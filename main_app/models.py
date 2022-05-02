@@ -109,7 +109,7 @@ class Job(models.Model):
 class Material(models.Model):
     name = models.CharField(max_length=15)
     # make int field
-    received_qty = models.CharField(max_length=1000, blank=True)
+    received_qty = models.IntegerField()
     PO_qty = models.IntegerField()
     unit_measure = models.CharField(max_length=2)
     cost_code = models.CharField(max_length=25)

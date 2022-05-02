@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from django.views import View
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .forms import Material_Form, Ticket_Form
+from .forms import Material_Form, Ticket_Form, Ticket_Creation_Form
 from django.views.generic import DetailView
 from .models import Ticket, Job, Material, User
 from django.urls import reverse, reverse_lazy
@@ -38,13 +38,26 @@ class Tickets(TemplateView):
 class Ticket_Create(CreateView):
     template_name = 'ticket_create.html'
     model = Ticket
+    # form_class = Ticket_Creation_Form
     form_class = Ticket_Form
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
         self.object.signer = self.request.user
         self.object.save()
+        self.object.material_id.rcv_material(int(self.object.quantity))
+        self.object.material_id.save()
         return HttpResponseRedirect('/tickets')
+
+# AJAX testing dynamic dropdown
+def load_materials(request):
+    job_id = request.GET.get('job_id')
+    materials = Material.objects.filter(job_id=job_id).all()
+    print(materials)
+    print("hello")
+    # return render(request, 'material_dropdown_list_options.html', {'materials': materials})
+    print(list(materials.values('id', 'name')))
+    return JsonResponse(list(materials.values('id', 'name')), safe=False)
 
 class Jobs(TemplateView):
     template_name = 'jobs.html'
@@ -131,7 +144,6 @@ class Material_Create(CreateView):
     model = Material
     form_class = Material_Form
     success_url = reverse_lazy('jobs')
-    # fields = ['name','PO_qty', 'unit_measure', 'cost_code']
 
     def form_valid(self, form):
         form.instance.job = get_object_or_404(Job, id=self.kwargs['pk'])

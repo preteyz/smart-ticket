@@ -8,9 +8,13 @@ urlpatterns = [
     # Ticket CRUD
     path('tickets/', views.Tickets.as_view(), name = "tickets"),
     path('tickets/new', views.Ticket_Create.as_view(), name = "ticket_create"),
+    # path('tickets/new', views.Ticket_Create.as_view(), name = "ticket_create_ajax"),
     # path('tickets/<int:pk>', views.Ticket_Detail.as_view(), name = "ticket_detail"),
     # path('tickets/<int:pk>/update', views.Ticket_Update.as_view(), name="ticket_update"),
     # path('tickets/<int:pk>/delete', views.Ticket_Delete.as_view(), name="ticket_delete"),
+
+    # Testing dynamic drop down form
+    path('ajax/load-materials/', views.load_materials, name='ajax_load_materials'), # AJAX
 
     # Job CRUD
     path('jobs/', views.Jobs.as_view(), name = "jobs"),
