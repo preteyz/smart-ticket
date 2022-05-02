@@ -26,6 +26,11 @@ urlpatterns = [
     # path('materials/<int:pk>/update', views.Material_Update.as_view(), name="material_update"),
     # path('materials/<int:pk>/delete', views.Material_Delete.as_view(), name="material_delete"),
 
+    # Auth
+    path('login/', views.login_view, name='login'),
+    path('logout/', views.logout_view, name='logout'),
+    path('signup/', views.signup_view, name='signup'),
+
     
 
 ]
