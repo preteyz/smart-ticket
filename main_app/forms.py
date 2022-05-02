@@ -2,7 +2,7 @@ from django import forms
 from .models import Material
 from django.contrib.auth.forms import UserCreationForm 
 from django.contrib.auth import authenticate
-from .models import Material, User
+from .models import Material, Ticket
 from django.contrib.auth.hashers import make_password
 
 class Material_Form(forms.ModelForm):
@@ -15,4 +15,16 @@ class Material_Form(forms.ModelForm):
             'unit_measure': forms.TextInput(attrs={'class': 'form-control'}),
             'cost_code': forms.TextInput(attrs={'class': 'form-control'}),
         }
-    
+
+class Ticket_Form(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        fields = ('job', 'material_id', 'number', 'quantity', 'note', 'status')
+        widgets = {
+            'job': forms.TextInput(attrs={'class': 'form-control'}),
+            'material_id': forms.TextInput(attrs={'class': 'form-control'}),
+            'number': forms.TextInput(attrs={'class': 'form-control'}),
+            'quantity': forms.TextInput(attrs={'class': 'form-control'}),
+            'note': forms.Textarea(attrs={'class': 'form-control'}),
+            'status': forms.TextInput(attrs={'class': 'form-control'}),
+        }

@@ -101,13 +101,13 @@
 
 
                         <div class="row">
-                            <div class="col-sm-3">
+                            <div class="col-sm-2">
                                 <h6 class="mb-0">First Name</h6>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-2">
                                 <h6 class="mb-0">Last Name</h6>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-4">
                                 <h6 class="mb-0">Email</h6>
                             </div>
                             <div class="col-sm-2">
@@ -121,13 +121,13 @@
 
                         {% for employee in employees %}
                         <div class="row">
-                            <div class="col-sm-3 text-secondary">
-                                <h6 class="mb-0">{{employee.first_name}}</h6>
-                            </div>
-                            <div class="col-sm-3 text-secondary">
-                                <h6 class="mb-0">{{employee.last_name}}</h6>
+                            <div class="col-sm-2 text-secondary">
+                                <h6 class="mb-0">{{employee.username}}</h6>
                             </div>
                             <div class="col-sm-2 text-secondary">
+                                <h6 class="mb-0">{{employee.last_name}}</h6>
+                            </div>
+                            <div class="col-sm-4 text-secondary">
                                 <h6 class="mb-0">{{employee.email}}</h6>
                             </div>
                             <div class="col-sm-2 text-secondary">

@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .forms import Material_Form
+from .forms import Material_Form, Ticket_Form
 from django.views.generic import DetailView
 from .models import Ticket, Job, Material, User
 from django.urls import reverse, reverse_lazy
@@ -38,7 +38,7 @@ class Tickets(TemplateView):
 class Ticket_Create(CreateView):
     template_name = 'ticket_create.html'
     model = Ticket
-    fields = ['ticket_id', 'job_id', 'number', 'quantity', 'note', 'status']
+    form_class = Ticket_Form
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
@@ -107,6 +107,7 @@ class Job_Detail(DetailView):
         context['job'] = job_object
         # Pull all users that are assigned to the job
         context['company'] = User.objects.all()
+        context['employees'] = job_object.employees.all()
         context['header'] = 'Jobsite Detail'
         context['materials'] = Material.objects.filter(Q(job = job_object))
         # if employee_add:
