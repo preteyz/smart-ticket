@@ -120,11 +120,9 @@ class Job_Detail(DetailView):
         employee_add = self.request.GET.get("employee_add")
         employee_remove = self.request.GET.get("employee_remove")
         # add and remove throwing error
-        # if employee_add:
-        #     job_object.employees.add(get_object_or_404(User, username=employee_add)) 
-        # if employee_remove:
-        #     job_object.employees.add(get_object_or_404(User, username=employee_remove)) 
-
+        if employee_add:
+            job_object.employees.add(get_object_or_404(User, username=employee_add)) 
+            
         # materials accessable thru job
         context['job'] = job_object
         # Pull all users that are assigned to the job

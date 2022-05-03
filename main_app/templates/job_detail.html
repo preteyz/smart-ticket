@@ -84,16 +84,7 @@
             
             <div>
                 <form class="d-flex">
-                    <!-- remove -->
-                    <select name="employee_remove" style="min-height: 30px; border:none">
-                    <option value="empty">Choose Employee</option>
-                    {% for employee in remove_employees %}
-                    <option value="{{employee}}">{{employee}}</option>
-                    {% endfor %}
-                    <input type="submit"  value="Remove" style="color:white; background:red; border-radius: 5px; border: 1px solid #cccccc; min-height: 30px;"></input>
-                    </select> 
-                    
-                    <!-- add -->
+                    <!-- add employee -->
                     <select name="employee_add" style="min-height: 30px; border:none">
                     <option value="empty">Choose Employee</option>
                     {% for employee in add_employees %}
@@ -123,7 +114,7 @@
                             <div class="col-sm-2">
                                 <h6 class="mb-0">Phone #</h6>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-1">
                                 <h6 class="mb-0">Role</h6>
                             </div>
                         </div>
@@ -143,7 +134,7 @@
                             <div class="col-sm-2 text-secondary">
                                 <h6 class="mb-0">{{employee.phone_number}}</h6>
                             </div>
-                            <div class="col-sm-2 text-secondary">
+                            <div class="col-sm-1 text-secondary">
                                 <h6 class="mb-0">{{employee.role}}</h6>
                             </div>
                         </div>

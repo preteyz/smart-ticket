@@ -7,6 +7,12 @@ name = "pypi"
 django = "*"
 psycopg2-binary = "*"
 django-crispy-forms = "*"
+gunicorn = "*"
+django-heroku = "*"
+django-cors-headers = "*"
+dj-database-url = "*"
+psycopg2 = "*"
+whitenoise = "*"
 
 [dev-packages]
 
