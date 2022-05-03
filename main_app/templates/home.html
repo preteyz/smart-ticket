@@ -4,16 +4,25 @@
 Smart Ticket Home
 {% endblock %}
 
+
 {% block content %}
 
 <div class="container-md">
+    
 
-
-    {% comment %} {% if user.is_authenticated %}
-
+    {% if user.is_authenticated %}
+    <h4 class="nav-item" >
+        <h7
+           class="nav-link">
+           Hello, {{ user.username }}!
+    </h7>
+    </h4>
     {% else %}
+        <h7>
+            Please login to continue
+        </h7>
 
-    {% endif %} {% endcomment %}
+    {% endif %}
 
     </P>
 {% endblock %}

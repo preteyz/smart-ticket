@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Create New Ticket (production will take image)</h1>
+<form class="form-control" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Submit" />
+</form>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    $("#id_job").change(function () {
+        const url = $("#ticketForm").attr("data-materials-url");  // get the url of the `load_materials` view
+        const jobId = $(this).val();  // get the selected country ID from the HTML input
+
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= /persons/ajax/load-materials/ )
+            data: {
+                'job_id': jobId       // add the country id to the GET parameters
+            },
+            success: function (data) {   // `data` is the return of the `load_materials` view function
+                // $("#id_material_id").html(data);  // replace the contents of the material input with the data that came from the server
+                console.log(data['job_id'])
+                let html_data = '<option value="">---------</option>';
+                data.forEach(function (material) {
+                    html_data += `<option value="${material.id}">${material.name}</option>`
+                });
+                console.log(html_data);
+                $("#id_city").html(html_data);
+                
+            }
+        });
+
+    });
+</script>
+
+{% endblock %}
+
+

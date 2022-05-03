@@ -7,20 +7,59 @@
 {% block content %}
 
 <h1>{{header}}  <a href="{% url 'ticket_create' %}" class="btn btn-light" role="button">+</a></h1>
-
-    {% for ticket in tickets %}
-    <div class="card">
-        <div class="card" style="width: 100%;">
-            <img class="card-img-top" src="{{ticket.img}}" alt="{{ticket.name}}">
-            <div class="card-body">
-            <h5 class="card-title">{{ticket.name}}</h5>
-            <small>Shared by: <a href="/user/{{ ticket.user.username }}">{{ ticket.user.username }}</a></small>
-            <br /><br />
-            <p class="card-text">{{ticket.description}}</p>
-            <a href="{% url 'ticket_detail' ticket.pk %}" class="btn btn-primary">Details</a>
-            </div>
-        </div>
+<div class="row">
+    <div class="col-sm-1">
+        <h6 class="mb-0">Number</h6>
     </div>
-    
-    {% endfor %}
+    <div class="col-sm-3">
+        <h6 class="mb-0">Project</h6>
+    </div>
+    <div class="col-sm-3">
+        <h6 class="mb-0">Ticketed Time</h6>
+    </div>
+    <div class="col-sm-3">
+        <h6 class="mb-0">Material</h6>
+    </div>
+    <div class="col-sm-1">
+        <h6 class="mb-0">Quantity</h6>
+    </div>
+
+</div>
+<hr>
+{% comment %} Pending addition of logic for user permissions {% endcomment %}
+{% if all_tickets %}
+{% for ticket in all_tickets %}
+<div class="row">
+    <div class="col-sm-1 text-secondary">
+        <h6 class="mb-0">{{ticket.number}}</h6>
+    </div>
+    <div class="col-sm-3 text-secondary">
+        <h6 class="mb-0">{{ticket.job}}</h6>
+    </div>
+    <div class="col-sm-3 text-secondary">
+        <h6 class="mb-0">{{ticket.ticketed_at}}</h6>
+    </div>
+    <div class="col-sm-3 text-secondary">
+        <h6 class="mb-0">{{ticket.material}}</h6>
+    </div>
+    <div class="col-sm-1 text-secondary">
+        <h6 class="mb-0">{{ticket.quantity}}</h6>
+    </div>
+    <div class="col-sm-1">
+        <a href="{% url 'ticket_detail' ticket.pk %}">Details</a>
+    </div>
+</div>
+<hr>
+{% endfor %}
+
+{% else %}
+<div class="row">
+    <div class="col-sm-12 text-secondary">
+        <h6 class="mb-0">No Tickets added yet...</h6>
+    </div>
+</div>
+
+{% endif %}
+
+
 {% endblock %}

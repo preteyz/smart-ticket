@@ -12,15 +12,14 @@
             
             <div>
                 <a class="btn btn-info float-right"
-                target="__blank"
-                href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>
+                href="{% url 'job_update' job.pk %}">Edit</a>
             </div>
         </div>
 
         <div class="row gutters-sm">
 
             <div class="col-md-6">
-                <div class="card mb-3">
+                <div class="card mb-3 border-0">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-3">
@@ -49,7 +48,7 @@
             </div>
             
             <div class="col-md-6">
-                <div class="card mb-3">
+                <div class="card mb-3 border-0">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-3">
@@ -85,56 +84,57 @@
             
             <div>
                 <form class="d-flex">
+                    <!-- add employee -->
                     <select name="employee_add" style="min-height: 30px; border:none">
                     <option value="empty">Choose Employee</option>
-                    {% for employee in company %}
+                    {% for employee in add_employees %}
                     <option value="{{employee}}">{{employee}}</option>
                     {% endfor %}
-                    <input type="submit"  value="FILTER" style="color:white; background:#6E757D; border-radius: 5px; border: 1px solid #cccccc; min-height: 30px;"></input>
+                    <input type="submit"  value="Add" style="color:white; background:#6E757D; border-radius: 5px; border: 1px solid #cccccc; min-height: 30px;"></input>
                     </select>    
                 </form>
             </div>
         </div>
         <div class="row gutters-lg">
             <div class="col-md-12">
-                <div class="card mb-3">
+                <div class="card mb-3 border-0">
                     <div class="card-body">
 
 
                         <div class="row">
-                            <div class="col-sm-3">
+                            <div class="col-sm-2">
                                 <h6 class="mb-0">First Name</h6>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-2">
                                 <h6 class="mb-0">Last Name</h6>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-4">
                                 <h6 class="mb-0">Email</h6>
                             </div>
                             <div class="col-sm-2">
                                 <h6 class="mb-0">Phone #</h6>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-1">
                                 <h6 class="mb-0">Role</h6>
                             </div>
                         </div>
                         <hr>
 
-                        {% for employee in employees %}
+                        {% for employee in remove_employees %}
                         <div class="row">
-                            <div class="col-sm-3 text-secondary">
-                                <h6 class="mb-0">{{employee.first_name}}</h6>
-                            </div>
-                            <div class="col-sm-3 text-secondary">
-                                <h6 class="mb-0">{{employee.last_name}}</h6>
+                            <div class="col-sm-2 text-secondary">
+                                <h6 class="mb-0">{{employee.username}}</h6>
                             </div>
                             <div class="col-sm-2 text-secondary">
+                                <h6 class="mb-0">{{employee.last_name}}</h6>
+                            </div>
+                            <div class="col-sm-4 text-secondary">
                                 <h6 class="mb-0">{{employee.email}}</h6>
                             </div>
                             <div class="col-sm-2 text-secondary">
                                 <h6 class="mb-0">{{employee.phone_number}}</h6>
                             </div>
-                            <div class="col-sm-2 text-secondary">
+                            <div class="col-sm-1 text-secondary">
                                 <h6 class="mb-0">{{employee.role}}</h6>
                             </div>
                         </div>
@@ -155,24 +155,24 @@
             
             <div>
                 <a class="btn btn-primary float-right"
-                target="__blank"
+
                 href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Import</a>
                 <a class="btn btn-info float-right"
-                target="__blank"
-                href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Add</a>
+
+                href="{% url 'material_create' job.pk %}">Add</a>
             </div>
         </div>
         <div class="row gutters-lg">
             <div class="col-md-12">
-                <div class="card mb-3">
+                <div class="card mb-3 border-0">
                     <div class="card-body">
 
 
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <h6 class="mb-0">Material</h6>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-3">
                                 <h6 class="mb-0">Rcv Qty</h6>
                             </div>
                             <div class="col-sm-2">
@@ -181,7 +181,7 @@
                             <div class="col-sm-1">
                                 <h6 class="mb-0">UM</h6>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-2">
                                 <h6 class="mb-0">Cost Code</h6>
                             </div>
                         </div>
@@ -200,12 +200,13 @@
                             <div class="col-sm-2 text-secondary">
                                 <h6 class="mb-0">{{material.PO_qty}}</h6>
                             </div>
-                            <div class="col-sm-2 text-secondary">
+                            <div class="col-sm-1 text-secondary">
                                 <h6 class="mb-0">{{material.unit_measure}}</h6>
                             </div>
                             <div class="col-sm-2 text-secondary">
                                 <h6 class="mb-0">{{material.cost_code}}</h6>
                             </div>
+
                         </div>
                         <hr>
                         {% endfor %}
