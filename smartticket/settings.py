@@ -12,31 +12,31 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
-import socket
-import psycopg2
-import dj_database_url
+# import socket
+# import psycopg2
+# import dj_database_url
 
-DATABASE_URL = os.environ['DATABASE_URL']
-conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+# DATABASE_URL = os.environ['DATABASE_URL']
+# conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
-# If the host name starts with 'live', DJANGO_HOST = "production"
-if socket.gethostname().startswith('live'):
-    DJANGO_HOST = "production"
-# Else if host name starts with 'test', set DJANGO_HOST = "test"
-elif socket.gethostname().startswith('test'): 
-    DJANGO_HOST = "testing"
-else:
-# If host doesn't match, assume it's a development server, set DJANGO_HOST = "development"
-    DJANGO_HOST = "development"
-# Define general behavior variables for DJANGO_HOST and all others
-if DJANGO_HOST == "production":
-    DEBUG = False
-    STATIC_URL = 'https://djangoventure.herokuapp.com/'
-else:
-    DEBUG = True
-    STATIC_URL = '/static/'
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+# # If the host name starts with 'live', DJANGO_HOST = "production"
+# if socket.gethostname().startswith('live'):
+#     DJANGO_HOST = "production"
+# # Else if host name starts with 'test', set DJANGO_HOST = "test"
+# elif socket.gethostname().startswith('test'): 
+#     DJANGO_HOST = "testing"
+# else:
+# # If host doesn't match, assume it's a development server, set DJANGO_HOST = "development"
+#     DJANGO_HOST = "development"
+# # Define general behavior variables for DJANGO_HOST and all others
+# if DJANGO_HOST == "production":
+#     DEBUG = False
+#     STATIC_URL = 'https://djangoventure.herokuapp.com/'
+# else:
+#     DEBUG = True
+#     STATIC_URL = '/static/'
+# # Build paths inside the project like this: BASE_DIR / 'subdir'.
+# BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -49,7 +49,7 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'django-smartticket'
+    # 'django-smartticket'
 ]
 
 # AUTH_USER_MODELS = "main_app.User"
@@ -68,7 +68,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -83,7 +83,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            '/www/STORE/main_app/templates/',
+            # '/www/STORE/main_app/templates/',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -110,7 +110,7 @@ DATABASES = {
     }
 }
 
-DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+# DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -152,7 +152,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 MEDIA_URL = 'media/'
-LOGIN_REDIRECT_URL = '/'
+# LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login/'
 
 # Default primary key field type
