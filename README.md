@@ -81,14 +81,12 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-The current workflow of the accounting and operations department in the construction industry can be extremely inefficient. This is partly due to the fact that materials are ordered to job sites that are spread wide across the state. It is difficult for the shipment receipt confirmation paperwork to find its way back to the main office for processing purposes. I want to create an app to streamline the workflow of the materials receivers process all the way to invoice reconciliation. 
+The current workflow of the accounting and operations department in the construction industry can be extremely inefficient. This is partly due to the fact that materials are ordered to job sites that are spread wide across the state. It is difficult for the shipment receipt confirmation paperwork to find its way back to the main office for processing purposes. This app will streamline the workflow of the materials receivers process all the way to invoice reconciliation.
 
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
+Here's how:
+* Digitization of physical tickets
+* Automation of invoice reconciliation process
 
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
 
 Use the `BLANK_README.md` to get started.
 
@@ -103,21 +101,18 @@ Use the `BLANK_README.md` to get started.
 <a href="https://miro.com/app/board/uXjVO70qThA=/?share_link_id=955729652859">Click Here to see more!</a>
 
 ## ERD
-![image](https://user-images.githubusercontent.com/53968876/164368655-704d2b3f-d750-43b0-ab2a-1704fcc59815.png)
+<img width="657" alt="image" src="https://user-images.githubusercontent.com/53968876/166613892-bc36ae81-d113-49fc-9a35-cba8249f4afb.png">
 
 
 ### Built With
 
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
-* [Next.js](https://nextjs.org/)
-* [React.js](https://reactjs.org/)
-* [Vue.js](https://vuejs.org/)
-* [Angular](https://angular.io/)
-* [Svelte](https://svelte.dev/)
-* [Laravel](https://laravel.com)
-* [Bootstrap](https://getbootstrap.com)
-* [JQuery](https://jquery.com)
+* django
+* python
+* postgres
+* heroku
+* whitenoise
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
